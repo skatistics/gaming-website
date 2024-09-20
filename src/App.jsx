@@ -1,8 +1,24 @@
 import React from 'react'
+import { useState, useEffect } from 'react'
+function App() {
+  const [products, setProducts] = useState(null);
 
-const App = () => {
+  useEffect(() => {
+    fetch('https://fakestoreapi.com/products').then((res) => {return res.json()}).then((data)=>{setProducts(data)});
+  }, [])
+
   return (
-    <div>App</div>
-  )
+    products && (
+      <div>
+        {
+          products.map((product)=>{
+            <div>
+              ANG UNANG ITEM AY { product.title }
+            </div>
+          })
+        }
+      </div>
+    )
+  )   
 }
 export default App
